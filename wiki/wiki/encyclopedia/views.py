@@ -12,7 +12,6 @@ class SearchWikiForm(forms.Form):
 class CreateWikiForm(forms.Form):
     title = forms.CharField(label="Title")
 
-
 def index(request):
     if "search" not in request.session:
             request.session["search"] = None
@@ -42,11 +41,11 @@ def index(request):
 def wiki(request, title):
     return render(request, "encyclopedia/wiki.html", {
         "entry": util.get_entry(title),
-        "form": SearchWikiForm()
+        "form": SearchWikiForm(),
+        "title": title
     })
 
 def results(request):
-
     return render(request, "encyclopedia/results.html", {
         "entries": util.list_entries(),
         "form": SearchWikiForm(),
@@ -54,9 +53,6 @@ def results(request):
     })
 
 def create(request):
-
-
-
     if request.method == "POST":
         title_form = CreateWikiForm(request.POST)
         content = request.POST.get("content")
@@ -80,3 +76,16 @@ def create(request):
 
 def error(request):
     return render(request, "encyclopedia/error.html")
+
+def edit(request, title):
+    if request.method == "POST":
+        content = request.POST.get("content")
+        util.save_entry(title, content)
+        return HttpResponseRedirect(reverse('encyclopedia:wiki', args=[title]))   
+    
+    content = util.get_entry(title)
+    return render(request, "encyclopedia/edit.html", {
+        "form": SearchWikiForm(),
+        "title": title,
+        "content": content
+    })

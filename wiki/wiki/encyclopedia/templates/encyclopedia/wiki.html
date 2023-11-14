@@ -12,5 +12,6 @@
         <h1>Information</h1>
         <p>{{ entry }}</p>
     {% endif %}
+    <a class="wiki-links" href="{% url 'encyclopedia:edit' title=title %}">Edit Page</a>
 
 {% endblock %}

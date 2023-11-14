@@ -1,1 +1,2 @@
-Static Typed Language
+Java is cool hehe
+            
