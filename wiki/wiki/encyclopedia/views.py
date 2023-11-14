@@ -7,24 +7,28 @@ from . import util
 from django import forms
 
 class SearchWikiForm(forms.Form):
-    search = forms.CharField(label="New Search")
+    search = forms.CharField(label="Search")
 
 
 def index(request):
+    if "search" not in request.session:
+            request.session["search"] = None
 
     if request.method == "POST":
         form = SearchWikiForm(request.POST)
 
         if form.is_valid():
             search = form.cleaned_data["search"]
+            request.session["search"] = search
 
             for entry in util.list_entries():
-                if search == entry:
+                if search.lower() == entry.lower():
                     return HttpResponseRedirect(reverse("encyclopedia:wiki", kwargs={'title': entry}))
+                
+            return HttpResponseRedirect(reverse("encyclopedia:results"))
         else:
             return render(request, request, "encylopedia/index.html", {
-                "entries": util.list_entries(),
-                "form": SearchWikiForm()
+                "form": form
             })
     
     return render(request, "encyclopedia/index.html", {
@@ -38,9 +42,11 @@ def wiki(request, title):
         "form": SearchWikiForm()
     })
 
-def results(request, title):
+def results(request):
+
     return render(request, "encyclopedia/results.html", {
         "entries": util.list_entries(),
-        "form": SearchWikiForm()
+        "form": SearchWikiForm(),
+        "search": request.session["search"]
     })
 

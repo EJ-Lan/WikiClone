@@ -6,5 +6,18 @@
 
 {% block body %}
     <h1>Results</h1>
-
+    <ul>
+        {% with results_found=False %}
+            {% for entry in entries %}
+                {% if search.lower in entry.lower %}
+                    <a href="{% url 'encyclopedia:wiki' title=entry %}"><li>{{ entry }}</li></a>
+                    {% with results_found=True %}
+                    {% endwith %}
+                {% endif %}
+            {% endfor %}
+            {% if not results_found %}
+                <p>No results found...</p>
+            {% endif %}
+        {% endwith %}
+    </ul>
 {% endblock %}
