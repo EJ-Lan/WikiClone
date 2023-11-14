@@ -9,6 +9,9 @@ from django import forms
 class SearchWikiForm(forms.Form):
     search = forms.CharField(label="Search")
 
+class CreateWikiForm(forms.Form):
+    title = forms.CharField(label="Title")
+
 
 def index(request):
     if "search" not in request.session:
@@ -51,4 +54,29 @@ def results(request):
     })
 
 def create(request):
-    return render(request, "encyclopedia/create.html")
+
+
+
+    if request.method == "POST":
+        title_form = CreateWikiForm(request.POST)
+        content = request.POST.get("content")
+
+        if title_form.is_valid() and content:
+            title = title_form.cleaned_data["title"]
+            
+            for entry in util.list_entries():
+                if title.lower() == entry.lower():
+                    return HttpResponseRedirect(reverse('encyclopedia:error'))
+            else:    
+                util.save_entry(title, content)
+                return HttpResponseRedirect(reverse('encyclopedia:wiki', args=[title]))
+    else:
+        title_form = CreateWikiForm()
+
+    return render(request, "encyclopedia/create.html", {
+        "form": SearchWikiForm(),
+        "title_form": CreateWikiForm()
+    })
+
+def error(request):
+    return render(request, "encyclopedia/error.html")

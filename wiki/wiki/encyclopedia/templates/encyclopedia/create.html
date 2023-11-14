@@ -5,12 +5,19 @@
 {% endblock %}
 
 {% block body %}
-    <h1>All Pages</h1>
+    <h1>Create</h1>
 
-    <ul>
-        {% for entry in entries %}
-            <a class="wiki-links" href="{% url  'encyclopedia:wiki' title=entry %}" ><li>{{ entry }}</li></a>
-        {% endfor %}
-    </ul>
-
+    <div class="create-content">
+        <form action="{% url 'encyclopedia:create' %}" method="post">
+            {% csrf_token %}
+            {{ title_form }}
+            <br>
+            <textarea name="content">
+            </textarea>
+            <br>
+            <input type="submit" value="Save">
+    
+        </form>
+    </div>
+    
 {% endblock %}

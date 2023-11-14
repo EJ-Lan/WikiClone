@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .error-message {
+            font-size: 24px;
+            color: #555555;
+            margin-bottom: 20px;
+        }
+        a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #555555;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #555555;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-message">Oops! This page already exists.</div>
+    <a href="{% url 'encyclopedia:index' %}">Go to Home</a>
+    <a href="{% url 'encyclopedia:create' %}">Try Again</a>
+</body>
+</html>
