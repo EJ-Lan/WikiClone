@@ -10,8 +10,9 @@
         <p>No Entry Found</p>
     {% else %}
         <h1>Information</h1>
-        <p>{{ entry }}</p>
+        {{ entry|safe }}
     {% endif %}
+    <br>
     <a class="wiki-links" href="{% url 'encyclopedia:edit' title=title %}">Edit Page</a>
 
 {% endblock %}
