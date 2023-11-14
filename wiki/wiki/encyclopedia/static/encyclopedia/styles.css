@@ -1,81 +1,93 @@
 body {
     margin: 0;
-    background-color: white;
+    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif; /* Use a web-safe font */
 }
 
-code {
-    white-space: pre;
-}
-
-h1 {
-    margin-top: 0px;
-    padding-top: 20px;
-}
-
-textarea {
-    height: 90vh;
-    width: 80%;
+h1, h2 {
+    color: #333; /* Darker shade for headers */
 }
 
 .main {
-    padding: 10px;
-}
-
-.search {
-    width: 100%;
-    font-size: 15px;
-    line-height: 15px;
+    padding: 20px;
+    background-color: white;
+    border-left: 1px solid black; /* Adds a subtle border to the main content */
 }
 
 .sidebar {
-    background-color: #f0f0f0;
-    height: 100vh;
-    padding: 20px;
+    background-color: #2c3e50; /* Darker shade for contrast */
+    color: white; /* Light text on dark background */
 }
 
 .sidebar h2 {
-    margin-top: 5px;
+    margin-top: 0;
+    padding-bottom: 20px;
 }
 
-.sidebar input[type="text"] {
-    width: 150px;
-}
-
-.sidebar input[type="submit"] {
-    background-color: #555555;
-    color: white;
-    border-radius: 4px;
-    padding: 2px;
-    margin-top: 4px;
-}
-
-.wiki-links {
-    color: black;
+.sidebar a {
+    color: #8ca3af; /* Lighter shade for links */
     text-decoration: none;
-    list-style-type: square;
 }
 
-.pages {
-    color: #383838;
+.sidebar a:hover {
+    color: #ecf0f1; /* Color change on hover */
 }
 
-.create-content input[type="submit"] {
-    background-color: #555555;
+.pages, .wiki-links {
+    color: #3498db; /* Brighter color for links */
+    text-decoration: none;
+}
+
+.pages:hover, .wiki-links:hover {
+    text-decoration: underline; /* Underline on hover for links */
+}
+
+.edit-button, .create-content input[type="submit"], .sidebar input[type="submit"] {
+    background-color: #3498db; /* Consistent button color */
     color: white;
+    border: none;
+    padding: 10px 15px;
     border-radius: 4px;
-    padding: 2px;
-    margin-top: 4px;
+    margin-top: 10px;
+}
+
+.edit-button:hover, .create-content input[type="submit"]:hover, .sidebar input[type="submit"]:hover {
+    background-color: #2980b9; /* Darker shade on hover for buttons */
+    cursor: pointer;
 }
 
 textarea {
-    width: 500px;
-    height: 500px;
+    width: 100%;
+    height: 200px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
 }
 
-.edit-button {
-    background-color: #555555;
+/* This ensures that the .row takes up only as much space as needed */
+.row {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+/* This sets the sidebar to a fixed height and makes it scrollable if the content overflows */
+.sidebar {
+    height: 100vh; /* Adjust as necessary */
+    overflow-y: auto; /* Allows scrolling */
+}
+
+/* This ensures that the main content area only takes the necessary space */
+.main {
+    flex: 1; /* Takes up the remaining space */
+    padding-bottom: 20px; /* Add some space at the bottom */
+}
+
+h2 {
     color: white;
-    border-radius: 4px;
-    padding: 2px;
-    margin-top: 4px;
+    padding: 8px;
+    margin: 4px;
+}
+
+.sidebar-content {
+    text-align: center;
 }
