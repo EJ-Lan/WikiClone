@@ -50,3 +50,5 @@ def results(request):
         "search": request.session["search"]
     })
 
+def create(request):
+    return render(request, "encyclopedia/create.html")
