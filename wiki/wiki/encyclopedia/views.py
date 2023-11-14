@@ -20,12 +20,12 @@ def index(request):
 
             for entry in util.list_entries():
                 if search == entry:
-                    return HttpResponseRedirect(reverse(f"encyclopedia:{entry}"))
-    else:
-        return render(request, request, "encylopedia/index.html", {
-            "entries": util.list_entries(),
-            "form": SearchWikiForm()
-        })
+                    return HttpResponseRedirect(reverse("encyclopedia:wiki", kwargs={'title': entry}))
+        else:
+            return render(request, request, "encylopedia/index.html", {
+                "entries": util.list_entries(),
+                "form": SearchWikiForm()
+            })
     
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries(),
